@@ -1,14 +1,12 @@
 package com.ifp;
 
 import javax.crypto.*;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import static java.lang.System.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Cipher cipher = null;
         SecretKey secretKey = null;
         Scanner scanner = new Scanner(in);
@@ -16,16 +14,16 @@ public class Main {
         String mensaje;
         byte[] cifrado = null;
 
-        while (respuesta != 3) {
-            out.println("|=============================|" + lineSeparator() +
-                    "|1) Cifrar                    |" + lineSeparator() +
-                    "|2) Descifrar                 |" + lineSeparator() +
-                    "|3) Salir                     |" + lineSeparator() +
-                    "|=============================|");
-            out.println("Introduce una respuesta: ");
-            respuesta = scanner.nextInt();
+        try {
+            while (respuesta != 3) {
+                out.println("|=============================|" + lineSeparator() +
+                        "|1) Cifrar                    |" + lineSeparator() +
+                        "|2) Descifrar                 |" + lineSeparator() +
+                        "|3) Salir                     |" + lineSeparator() +
+                        "|=============================|");
+                out.println("Introduce una respuesta: ");
+                respuesta = scanner.nextInt();
 
-            if (respuesta >= 1 || respuesta <= 3) {
                 switch (respuesta) {
                     case 1:
                         out.println("Introduce el texto a cifrar: ");
@@ -44,12 +42,27 @@ public class Main {
                         out.println("Mensaje cifrado: " + cifrado);
                         break;
 
+                    case 2:
+                        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+                        byte[] descifrado = cipher.doFinal(cifrado);
+
+                        out.println("|=============================|");
+                        out.println("Mensaje descifrado: " + new String(descifrado));
+                        break;
+
                     case 3:
+                        break;
+
+                    default:
+                        out.println("Enter the data correctly");
                         break;
                 }
 
-            } else throw new Exception("Introduce correctamente los datos");
-        }
+            }
 
+
+        } catch (Exception e) {
+            out.println("Encrypt the data first");
+        }
     }
 }
