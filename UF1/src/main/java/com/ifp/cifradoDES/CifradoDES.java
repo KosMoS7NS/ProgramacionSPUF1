@@ -48,7 +48,7 @@ public class CifradoDES {
                             mensaje = scanner.nextLine();
 
                             out.println("|=============================|");
-                            out.println("Mensaje a encriptar " + mensaje);
+                            out.println("Mensaje a encriptar: " + mensaje);
 
                             secretKey = KeyGenerator.getInstance("DES").generateKey();
 
