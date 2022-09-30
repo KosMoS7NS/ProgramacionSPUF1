@@ -18,7 +18,7 @@ public class CifradoPropio {
         double key = 1 * (PI / E);
         int i = 0;
         String letras = "";
-        String descifrado = "";
+        double descifrado = 0;
         double ascii = 0;
 
         while (respuesta != 3) {
@@ -57,13 +57,34 @@ public class CifradoPropio {
                     double sum_ASCII_values = cifrado / key;
                     out.println("ASCII DESCIFRADO: " + sum_ASCII_values);
 
-                    i = 0;
-                    while (i < texto.length()) {
-                        descifrado += texto.charAt(i) / key;
-                        out.println("DESCIFRADO: " + letras);
-                        i++;
+                    i = texto.length();
+                    while (i > 0) {
+                        sum_ASCII_values = sum_ASCII_values - (sum_ASCII_values - texto.charAt(i - 1));
+                        out.println("LETRAS RESTA ASCII " + i + ": " + sum_ASCII_values);
+                        i--;
                     }
-//
+// *************************************************************************************************
+//                    i = texto.length();
+//                    while (i > 0) {
+//                        out.println("LETRAS RESTA ASCII: " + sum_ASCII_values);
+//                        sum_ASCII_values -= texto.charAt(i - 1);
+//                        i--;
+//                    }
+// *************************************************************************************************
+
+//                    i = texto.length();
+//                    while (i > 0) {
+//                        sum_ASCII_values -=
+//                        i--;
+//                    }
+
+//                    i = 0;
+//                    while (i < texto.length()) {
+//                        descifrado += texto.charAt(i) / key;
+//                        out.println("DESCIFRADO: " + descifrado);
+//                        i++;
+//                    }
+//*****************************************************************************
 //                    i = texto.length();
 //                    while (i > 0) {
 ////                        prueba += texto.charAt(i);
