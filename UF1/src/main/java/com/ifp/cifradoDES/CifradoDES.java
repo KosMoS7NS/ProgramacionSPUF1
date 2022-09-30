@@ -17,8 +17,8 @@ import static javax.crypto.Cipher.*;
 public class CifradoDES {
     public static void cifradoDES() throws NoSuchAlgorithmException, NoSuchPaddingException {
         Scanner scanner = new Scanner(in);
-        Cipher cipher = getInstance("DES");
         SecretKey secretKey = KeyGenerator.getInstance("DES").generateKey();
+        Cipher cipher = getInstance("DES");
         int respuesta = 0;
         String ruta;
 
