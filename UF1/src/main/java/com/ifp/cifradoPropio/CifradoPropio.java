@@ -14,18 +14,20 @@ public class CifradoPropio {
         Scanner scanner = new Scanner(System.in);
         int respuesta = 0;
         String texto = "";
-        char letras = 0;
         double cifrado = 0;
         double key = 1 * (PI / E);
         int i = 0;
+        String letras = "";
+        String descifrado = "";
+        double ascii = 0;
 
         while (respuesta != 3) {
             out.println(lineSeparator() +
-                    "|=============================|" + lineSeparator() +
-                    "|1) Cifrar                    |" + lineSeparator() +
-                    "|2) Descifrar                 |" + lineSeparator() +
-                    "|3) Salir                     |" + lineSeparator() +
-                    "|=============================|");
+                    "|====================================|" + lineSeparator() +
+                    "|1) Cifrar Propio                    |" + lineSeparator() +
+                    "|2) Descifrar Propio                 |" + lineSeparator() +
+                    "|3) Salir                            |" + lineSeparator() +
+                    "|====================================|");
 
             out.println("Introduce una respuesta: ");
             respuesta = scanner.nextInt();
@@ -37,26 +39,53 @@ public class CifradoPropio {
                     texto = scanner.nextLine();
 
                     while (i < texto.length()) {
-                        cifrado = texto.charAt(i) * key;
-                        out.print(cifrado);
+                        letras += texto.charAt(i);
+                        ascii += texto.charAt(i);
+                        cifrado += texto.charAt(i) * key;
+
+                        out.println("LETRAS: " + letras);
+                        out.println("LETRAS SUM ASCII: " + ascii);
+                        out.println("CIFRADO: " + cifrado);
+
                         i++;
                     }
+//                    out.print("CIFRADO: " + prueba);
                     break;
 
                 case 2:
-                    out.println("Introduce el texto a descifrar: ");
-                    scanner.nextLine();
-                    texto = scanner.nextLine();
+                    out.println("Descifrando texto...");
+                    double sum_ASCII_values = cifrado / key;
+                    out.println("ASCII DESCIFRADO: " + sum_ASCII_values);
 
+                    i = 0;
                     while (i < texto.length()) {
-                        cifrado = texto.charAt(i) * key;
-                        double numberText = cifrado / key;
-
-                        char descifrado = (char) numberText;
-                        out.print(descifrado);
-
+                        descifrado += texto.charAt(i) / key;
+                        out.println("DESCIFRADO: " + letras);
                         i++;
                     }
+//
+//                    i = texto.length();
+//                    while (i > 0) {
+////                        prueba += texto.charAt(i);
+//                        cifrado -=  texto.charAt(i - 1) / key;
+//                        descifrado += (char) cifrado;
+//                        out.println("DESCIFRADO BUCLE: " + descifrado);
+//                        i--;
+//                    }
+
+//                    while (i < texto.length()) {
+//                        var letraCifrado = String.valueOf(cifrado).charAt(i) / key;
+//
+//                        double numberText = cifrado / key;
+//                        char descifrado = (char) numberText;
+//
+//                        out.print(letraCifrado);
+////                        out.print(descifrado);
+//                        i++;
+//                    }
+
+                    i++;
+
                     break;
             }
 

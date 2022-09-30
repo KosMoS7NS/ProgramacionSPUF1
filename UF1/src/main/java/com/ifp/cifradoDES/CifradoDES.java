@@ -25,11 +25,12 @@ public class CifradoDES {
 
         try {
             while (respuesta != 3) {
-                out.println("|=============================|" + lineSeparator() +
-                        "|1) Cifrar                    |" + lineSeparator() +
-                        "|2) Descifrar                 |" + lineSeparator() +
-                        "|3) Salir                     |" + lineSeparator() +
-                        "|=============================|");
+                out.println(lineSeparator() +
+                        "|================================|" + lineSeparator() +
+                        "|1) Cifrar DES                   |" + lineSeparator() +
+                        "|2) Descifrar DES                |" + lineSeparator() +
+                        "|3) Salir                        |" + lineSeparator() +
+                        "|================================|");
                 out.println("Introduce una respuesta: ");
                 respuesta = scanner.nextInt();
 
