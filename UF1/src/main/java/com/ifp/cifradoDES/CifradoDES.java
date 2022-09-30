@@ -2,99 +2,86 @@ package com.ifp.cifradoDES;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import static java.lang.System.*;
-import static java.lang.System.out;
 import static javax.crypto.Cipher.*;
 
 public class CifradoDES {
-    public static void cifradoDES() throws IOException, NoSuchAlgorithmException {
-        Cipher cipher = null;
-        SecretKey secretKey = null;
+    public static void cifradoDES() throws NoSuchAlgorithmException, NoSuchPaddingException {
         Scanner scanner = new Scanner(in);
-        String lineaTextoFichero = "";
-        String totalLineas = "";
+        SecretKey secretKey = KeyGenerator.getInstance("DES").generateKey();
+        Cipher cipher = getInstance("DES");
         int respuesta = 0;
-        String mensaje;
         String ruta;
-        byte[] cifrado = null;
 
         try {
             while (respuesta != 3) {
-                out.println("|=============================|" + lineSeparator() +
-                        "|1) Cifrar                    |" + lineSeparator() +
-                        "|2) Descifrar                 |" + lineSeparator() +
-                        "|3) Salir                     |" + lineSeparator() +
-                        "|=============================|");
+                out.println("|================================|" + lineSeparator() +
+                        "|1) Encrypt                      |" + lineSeparator() +
+                        "|2) Decrypt                      |" + lineSeparator() +
+                        "|3) Exit                         |" + lineSeparator() +
+                        "|================================|");
                 out.println("Introduce una respuesta: ");
                 respuesta = scanner.nextInt();
 
-                try {
-                    switch (respuesta) {
-                        case 1:
+                switch (respuesta) {
+                    case 1:
+                        out.println("Introduce el fichero a cifrar: ");
+                        ruta = scanner.next();
 
-                            out.println("Introduce el fichero a cifrar");
-                            ruta = scanner.next();
+                        out.println("Introduce el texto a cifrar: ");
+                        scanner.nextLine();
+                        String mensaje = scanner.nextLine();
 
-                            out.println("Introduce el texto a cifrar: ");
-                            scanner.nextLine();
-                            mensaje = scanner.nextLine();
+                        out.println("|================================|");
+                        out.println("Mensaje a encriptar: " + mensaje);
 
-                            out.println("|=============================|");
-                            out.println("Mensaje a encriptar: " + mensaje);
+                        cipher.init(ENCRYPT_MODE, secretKey);
+                        byte[] cifrado = cipher.doFinal(mensaje.getBytes());
 
-                            secretKey = KeyGenerator.getInstance("DES").generateKey();
+                        FileOutputStream fileOutputStream =
+                                new FileOutputStream(new File(ruta), true);
 
-                            cipher = getInstance("DES");
-                            cipher.init(ENCRYPT_MODE, secretKey);
-                            cifrado = cipher.doFinal(mensaje.getBytes());
+                        fileOutputStream.write(cifrado);
+                        fileOutputStream.close();
 
-                            FileOutputStream fileOutputStream =
-                                    new FileOutputStream(new File(ruta), true);
+                        out.println("|================================|");
+                        out.println("Mensaje cifrado: " + cifrado);
+                        break;
 
-                            fileOutputStream.write(cifrado);
-                            fileOutputStream.close();
+                    case 2:
+                        out.println("Introduce el fichero a descifrar");
+                        ruta = scanner.next();
 
-                            out.println("|=============================|");
-                            out.println("Mensaje cifrado: " + cifrado);
-                            break;
+                        byte[] data = Files.readAllBytes(Path.of(ruta));
 
-                        case 2:
-                            out.println("Introduce el fichero a descifrar");
-                            ruta = scanner.next();
+                        cipher.init(DECRYPT_MODE, secretKey);
+                        byte[] descifrado = cipher.doFinal(data);
 
-                            byte[] data = Files.readAllBytes(Path.of(ruta));
+                        out.println("|=============================|");
+                        out.println("Mensaje descifrado: " + new String(descifrado));
+                        break;
 
-                            cipher = getInstance("DES");
-                            cipher.init(DECRYPT_MODE, secretKey);
-                            byte[] descifrado = cipher.doFinal(data);
+                    case 3:
+                        break;
 
-                            out.println("|=============================|");
-                            out.println("Mensaje descifrado: " + new String(descifrado));
-                            break;
-
-                        case 3:
-                            break;
-
-                        default:
-                            out.println("Enter the data correctly");
-                            break;
-                    }
-
-                } catch (Exception e) {
-                    out.println("Encrypt the data first");
+                    default:
+                        out.println("Enter the data correctly");
+                        break;
                 }
+
             }
 
         } catch (Exception e) {
-            out.println("Enter the data correctly");
+            e.printStackTrace();
         }
     }
 }
