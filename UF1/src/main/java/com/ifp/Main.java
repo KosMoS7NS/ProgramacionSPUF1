@@ -16,9 +16,9 @@ public class Main {
         while (respuesta != 3) {
             out.println(lineSeparator() +
                     "|===================================|" + lineSeparator() +
-                    "|1) Cifrar Propio                   |" + lineSeparator() +
-                    "|2) Cifrar DES                      |" + lineSeparator() +
-                    "|3) Salir                           |" + lineSeparator() +
+                    "|1) Custom encrypt                  |" + lineSeparator() +
+                    "|2) DES Encrypt                     |" + lineSeparator() +
+                    "|3) Exit                            |" + lineSeparator() +
                     "|===================================|");
 
             out.println("Introduce una respuesta: ");

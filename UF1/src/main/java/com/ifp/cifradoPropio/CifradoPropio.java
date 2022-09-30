@@ -18,49 +18,54 @@ public class CifradoPropio {
         double key = 1 * (PI / E);
         int i = 0;
 
-        while (respuesta != 3) {
-            out.println(
-                    "|====================================|" + lineSeparator() +
-                            "|1) Cifrar Propio                    |" + lineSeparator() +
-                            "|2) Descifrar Propio                 |" + lineSeparator() +
-                            "|3) Salir                            |" + lineSeparator() +
-                            "|====================================|");
+        try {
+            while (respuesta != 3) {
+                out.println("|====================================|" + lineSeparator() +
+                        "|1) Encrypt                          |" + lineSeparator() +
+                        "|2) Decrypt                          |" + lineSeparator() +
+                        "|3) Exit                             |" + lineSeparator() +
+                        "|====================================|");
 
-            out.println("Introduce una respuesta: ");
-            respuesta = scanner.nextInt();
+                out.println("Introduce una respuesta: ");
+                respuesta = scanner.nextInt();
 
-            switch (respuesta) {
-                case 1:
-                    out.println("Introduce el texto a cifrar: ");
-                    scanner.nextLine();
-                    texto = scanner.nextLine();
+                switch (respuesta) {
+                    case 1:
+                        out.println("Introduce el texto a cifrar: ");
+                        scanner.nextLine();
+                        texto = scanner.nextLine();
 
-                    while (i < texto.length()) {
-                        cifrado += texto.charAt(i) * key;
+                        while (i < texto.length()) {
+                            cifrado += texto.charAt(i) * key;
+                            i++;
+                        }
+                        out.println("ENCRYPTED: " + cifrado);
+                        break;
+
+                    case 2:
+                        String letras = "";
+                        String descifrado = null;
+
+                        i = texto.length();
+                        double sum_ASCII_values = cifrado / key;
+
+                        while (i > 0) {
+                            letras += (char) (sum_ASCII_values - (sum_ASCII_values - texto.charAt(i - 1)));
+                            descifrado = new StringBuilder(letras).reverse().toString();
+                            i--;
+                        }
+                        out.println(descifrado != null ? "DECRYPTED: " + descifrado : "Encrypt the data first");
+
                         i++;
-                    }
-                    out.println("CIFRADO: " + cifrado);
-                    break;
+                        break;
+                }
 
-                case 2:
-                    String letras = "";
-                    String descifrado = null;
-
-                    i = texto.length();
-                    double sum_ASCII_values = cifrado / key;
-
-                    while (i > 0) {
-                        letras += (char) (sum_ASCII_values - (sum_ASCII_values - texto.charAt(i - 1)));
-                        descifrado = new StringBuilder(letras).reverse().toString();
-                        i--;
-                    }
-                    out.println("DESCIFRADO: " + descifrado);
-
-                    i++;
-                    break;
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 }
