@@ -1,6 +1,6 @@
 package com.ifp;
 
-import com.ifp.cifradoAES.CifradoAES;
+import com.ifp.cifradoPropio.CifradoPropio;
 import com.ifp.cifradoDES.CifradoDES;
 
 import javax.crypto.*;
@@ -10,9 +10,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 import static java.lang.System.*;
-import static javax.crypto.Cipher.*;
-import static javax.crypto.Cipher.DECRYPT_MODE;
-import static javax.crypto.Cipher.ENCRYPT_MODE;
 
 public class Main {
     public static void main(String[] args) throws IOException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -21,7 +18,7 @@ public class Main {
 
         while (respuesta != 3) {
             out.println("|=============================|" + lineSeparator() +
-                    "|1) Cifrado AES               |" + lineSeparator() +
+                    "|1) Cifrado Propio             |" + lineSeparator() +
                     "|2) Cifrado DES               |" + lineSeparator() +
                     "|3) Salir                     |" + lineSeparator() +
                     "|=============================|");
@@ -29,7 +26,7 @@ public class Main {
             respuesta = scanner.nextInt();
 
             switch (respuesta) {
-                case 1 -> CifradoAES.cifradoAES();
+                case 1 -> CifradoPropio.cifradoPropio();
                 case 2 -> CifradoDES.cifradoDES();
             }
         }
