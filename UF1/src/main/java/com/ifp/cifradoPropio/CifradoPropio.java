@@ -18,6 +18,7 @@ public class CifradoPropio {
         double key = 1 * (PI / E);
         int i = 0;
         String letras = "";
+        String descifradoLetras = "";
         double descifrado = 0;
         double ascii = 0;
 
@@ -59,7 +60,10 @@ public class CifradoPropio {
 
                     i = texto.length();
                     while (i > 0) {
-                        sum_ASCII_values = sum_ASCII_values - (sum_ASCII_values - texto.charAt(i - 1));
+                        sum_ASCII_values -= sum_ASCII_values - texto.charAt(i - 1);
+                        descifradoLetras += (char) sum_ASCII_values;
+                        out.println("FRASE DESCIFRADA " + i + ": " +
+                                new StringBuilder(descifradoLetras).reverse().toString());
                         out.println("LETRAS RESTA ASCII " + i + ": " + sum_ASCII_values);
                         i--;
                     }
